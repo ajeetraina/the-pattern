@@ -31,8 +31,30 @@ Wait for a bit and then check:
 1) Redis Graph populated: 
 ```
 redis-cli -p 9001 -h 127.0.0.1 GRAPH.QUERY cord19medical "MATCH (n:entity) RETURN count(n) as entity_count" 
+```
+
+```
+redis-cli -p 9001 -h 127.0.0.1 GRAPH.QUERY cord19medical "MATCH (n:entity) RETURN count(n) as entity_count" 
+1) 1) "entity_count"
+2) 1) 1) (integer) 0
+3) 1) "Cached execution: 0"
+   2) "Query internal execution time: 0.804100 milliseconds"
+```
+
+```
 redis-cli -p 9001 -h 127.0.0.1 GRAPH.QUERY cord19medical "MATCH (e:entity)-[r]->(t:entity) RETURN count(r) as edge_count"
 ```
+
+```
+redis-cli -p 9001 -h 127.0.0.1 GRAPH.QUERY cord19medical "MATCH (e:entity)-[r]->(t:entity) RETURN count(r) as edge_count" 
+1) 1) "edge_count"
+2) (empty array)
+3) 1) "Cached execution: 0"
+   2) "Query internal execution time: 0.428500 milliseconds"
+```
+
+
+
 2) API responds: 
 ```
 curl -i -H "Content-Type: application/json" -X POST -d '{"search":"How does temperature and humidity affect the transmission of 2019-nCoV"}' http://localhost:8080/gsearch
